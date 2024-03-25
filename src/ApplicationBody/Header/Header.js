@@ -1,8 +1,7 @@
 export default function Header({inputValue, handleInputChangeEvent, handleSubmitEvent}) {
 
     return (
-        <>
-
+        <div>
             <form>
                 <div class="flex justify-center mt-8">
                     <div class="border rounded-lg shadow-md p-4">
@@ -13,7 +12,7 @@ export default function Header({inputValue, handleInputChangeEvent, handleSubmit
                     </div>
                 </div>
             </form>
-        </>
+        </div>
     )
     
 }

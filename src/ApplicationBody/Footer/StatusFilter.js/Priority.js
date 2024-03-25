@@ -24,19 +24,19 @@ export default function Priority() {
         
     }
 
-
-
-
     return (
-        <>
-            {Object.keys(priorityFilterContext).map(priority => {
-                return (
-                    <Fragment>
-                        <label>{priorityFilterContext[priority].priorityName}</label>
-                        <input value={priority} type="checkbox" onChange={() => handleAppliedPriorityFilter(priority)} checked={priorityFilterContext[priority].applied}></input>
-                    </Fragment>
-                )
-            })}  
-        </>
+        <div className="flex mt-10">
+            <span className="text-gray-600 mr-4">Priority:</span>
+                {Object.keys(priorityFilterContext).map(priority => {
+                    return (
+                        <div className="mb-5">
+                            <label className="inline-flex items-center mr-4">
+                                <input value={priority} type="checkbox" onChange={() => handleAppliedPriorityFilter(priority)} checked={priorityFilterContext[priority].applied} className="form-checkbox text-blue-500"/>
+                                <span className="ml-2">{priorityFilterContext[priority].priorityName}</span>
+                            </label>
+                        </div>
+                    )
+                })}
+        </div>
     )
 }
