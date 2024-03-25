@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@keyframes rotateHand {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.clock-hand {
+  transform-origin: center;
+  animation: rotateHand 2s linear infinite;
+}

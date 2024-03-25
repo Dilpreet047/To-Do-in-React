@@ -9,6 +9,9 @@ import Header from "./ApplicationBody/Header/Header";
 import { priorityFilters, priorityFiltersDispatcher } from "./ApplicationContext";
 
 
+import AppLogo from "./Icons/AppLogo";
+
+
 function App() {
 
   const [toDoState, dispatch] = useReducer(TaskReducer, {tasks: [], availableIds: [1,2,3,4,5,6,7,8,9,10], inputValue: '', activeCount: 0, priority: 'low'});
@@ -66,7 +69,13 @@ function App() {
 
   return (
     <>
-      <Header inputValue={toDoState.inputValue} handleInputChangeEvent={handleInputChange} handleSubmitEvent={handleSubmit} />
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 font-mono">
+        <div className="flex items-center mb-8">
+          <AppLogo customStyle={"clock-hand"}/>
+          <h1 className="text-4xl font-bold text-blue-600">Your To-Do</h1>
+        </div>
+        <Header inputValue={toDoState.inputValue} handleInputChangeEvent={handleInputChange} handleSubmitEvent={handleSubmit} />
+      </div>
       <priorityFilters.Provider value={priorityFilterState}>
         <TaskArea tasks={toDoState.tasks} activeCount={toDoState.activeCount} handleCompleteEvent={handleComplete} handleDeleteEvent={handleDelete} hanldlePriorityChangeEvent={handlePriorityChange} />
         <priorityFiltersDispatcher.Provider value={priorityFiltersDispatch}>
