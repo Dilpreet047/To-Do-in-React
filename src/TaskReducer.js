@@ -16,7 +16,7 @@ export function TaskReducer(toDoState, action) {
           return {
             ...toDoState,
             tasks: toDoState.tasks.filter(toDo => toDo.id !== action.id),
-            availableIds: [...toDoState.availableIds, action.id],
+            availableIds: [...toDoState.availableIds],
             activeCount: toDoState.activeCount - 1
           }
         }
@@ -46,7 +46,7 @@ export function TaskReducer(toDoState, action) {
             return {
                 ...toDoState,
                 tasks: toDoState.tasks.filter(task => !task.completed),
-                availableIds: [...toDoState.availableIds, completedTasks.map(task => task.id)],
+                availableIds: [...toDoState.availableIds],
                 activeCount: toDoState.activeCount - completedTasks.length
 
             }

@@ -14,7 +14,7 @@ import AppLogo from "./Icons/AppLogo";
 
 function App() {
 
-  const [toDoState, dispatch] = useReducer(TaskReducer, {tasks: [], availableIds: [1,2,3,4,5,6,7,8,9,10], inputValue: '', activeCount: 0, priority: 'low'});
+  const [toDoState, dispatch] = useReducer(TaskReducer, {tasks: [], availableIds: Array.from(Array(100).keys()), inputValue: '', activeCount: 0, priority: 'low'});
   const [priorityFilterState, priorityFiltersDispatch] = useReducer(FilterReducer, {high: {priorityName: 'High', applied: true}, medium: {priorityName: 'Medium', applied: true}, low: {priorityName: 'Low', applied: true}});
 
   const handleInputChange = (value) => {

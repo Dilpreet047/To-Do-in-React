@@ -1,13 +1,15 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 import { priorityFilters } from "../../ApplicationContext";
 
 import {default as GreenTick} from '../../Icons/GreenTick.svg';
 import {default as RedCross} from '../../Icons/RedCross.svg';
+import {default as EmptyState} from '../../Icons/EmptyState.svg';
 
 
 function TaskList({tasks, handleCompleteEvent, handleDeleteEvent, hanldlePriorityChangeEvent}) {
 
   const priorityFilterContext = useContext(priorityFilters);
+  
   return (
     <div className="max-h-72 overflow-y-auto">
       <ul>
@@ -46,7 +48,11 @@ function TaskArea({tasks, activeCount, handleCompleteEvent, handleDeleteEvent, h
   return (
     <div>
       <p className="text-blue-600 text-3xl font-bold mb-8 mt-4 flex justify-center">Your today's to-do: {activeCount}</p>
-      {activeCount > 0 ? <TaskList tasks={tasks} handleCompleteEvent={handleCompleteEvent} handleDeleteEvent={handleDeleteEvent} hanldlePriorityChangeEvent={hanldlePriorityChangeEvent} /> : ''}
+      {activeCount > 0 ? <TaskList tasks={tasks} handleCompleteEvent={handleCompleteEvent} handleDeleteEvent={handleDeleteEvent} hanldlePriorityChangeEvent={hanldlePriorityChangeEvent} /> : 
+      <div className="flex flex-col justify-center items-center">
+        <img className="w-48" src={EmptyState}/>
+        <span className="text-2xl text-blue-600 font-bold mt-4">Make your to-do</span>
+      </div>}
       
     </div>
   );
