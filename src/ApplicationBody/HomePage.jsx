@@ -63,11 +63,7 @@ export default function HomePage() {
 
 
   return (
-        <div className="p-4 w-3/4">
-            <div className="flex justify-center items-center mb-8">
-                <AppLogo customStyle={"clock-hand"}/>
-                <h1 className="text-5xl font-bold text-blue-600">Your To-Do</h1>
-            </div>
+          <div>
             <Header inputValue={toDoState.inputValue} handleInputChangeEvent={handleInputChange} handleSubmitEvent={handleSubmit} />
             <priorityFilters.Provider value={priorityFilterState}>
                 <TaskArea tasks={toDoState.tasks} activeCount={toDoState.activeCount} handleCompleteEvent={handleComplete} handleDeleteEvent={handleDelete} hanldlePriorityChangeEvent={handlePriorityChange} />
@@ -75,6 +71,7 @@ export default function HomePage() {
                 <Footer handleCompleteAllEvent={handleCompleteAll} handleDeleteAllEvent={handleDeleteCompleted} />
                 </priorityFiltersDispatcher.Provider>
             </priorityFilters.Provider>
-        </div>
+          </div>
+            
   )
 }
