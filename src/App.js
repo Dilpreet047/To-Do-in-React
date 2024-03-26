@@ -1,99 +1,16 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./ApplicationBody/LoginPage/Login";
+import HomePage from "./ApplicationBody/HomePage";
 
-import  TaskArea  from "./ApplicationBody/TaskArea/TaskArea";
+const router = createBrowserRouter([
+  { path: '/', element: <Login /> },
+  { path: '/home', element: <HomePage />}
+]);
 
-//eslint-disable-next-line
-import { TaskReducer, FilterReducer} from "./TaskReducer";
-import Footer from "./ApplicationBody/Footer/Footer";
-import { useReducer } from "react";
-import Header from "./ApplicationBody/Header/Header";
-import { priorityFilters, priorityFiltersDispatcher } from "./ApplicationContext";
-
-
-import AppLogo from "./Icons/AppLogo";
-
-
-function App() {
-
-  const [toDoState, dispatch] = useReducer(TaskReducer, {tasks: [], availableIds: Array.from(Array(100).keys()), inputValue: '', activeCount: 0, priority: 'low'});
-  const [priorityFilterState, priorityFiltersDispatch] = useReducer(FilterReducer, {high: {priorityName: 'High', applied: true}, medium: {priorityName: 'Medium', applied: true}, low: {priorityName: 'Low', applied: true}});
-
-  const handleInputChange = (value) => {
-    dispatch({
-      type: 'changeOfInputValue',
-      inputValue: value
-    })
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch({
-      type: 'addTask'
-    });
-
-  }
-
-  const handleDelete = (id) => {
-    dispatch({
-      type: 'deleteTask',
-      id: id
-    });
-  }
-
-  const handleComplete = (id) => {
-    dispatch({
-      type: 'completeTask',
-      id: id
-    })
-  }
-
-  const handleCompleteAll = () => {
-    dispatch({
-      type: 'completeAllTask'
-    })
-  }
-
-  const handleDeleteCompleted = () => {
-    dispatch({
-      type: 'deleteAllCompletedTask'
-    })
-  }
-
-  const handlePriorityChange = (e, taskId) => {
-    dispatch({
-      type: 'priorityChange',
-      id: taskId,
-      priority: e
-    })
-  }
-
-
+export default function App() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 font-mono">
-      <div className="p-4 w-3/4">
-        <div className="flex justify-center items-center mb-8">
-          <AppLogo customStyle={"clock-hand"}/>
-          <h1 className="text-5xl font-bold text-blue-600">Your To-Do</h1>
-        </div>
-        <Header inputValue={toDoState.inputValue} handleInputChangeEvent={handleInputChange} handleSubmitEvent={handleSubmit} />
-        <priorityFilters.Provider value={priorityFilterState}>
-          <TaskArea tasks={toDoState.tasks} activeCount={toDoState.activeCount} handleCompleteEvent={handleComplete} handleDeleteEvent={handleDelete} hanldlePriorityChangeEvent={handlePriorityChange} />
-          <priorityFiltersDispatcher.Provider value={priorityFiltersDispatch}>
-            <Footer handleCompleteAllEvent={handleCompleteAll} handleDeleteAllEvent={handleDeleteCompleted} />
-          </priorityFiltersDispatcher.Provider>
-        </priorityFilters.Provider>
-      </div>
+      <RouterProvider router={router}/>
     </div>
   )
-}
-
-
-
-export default App;
-
-
-// {
-//   tasks: [],
-//   availableIds: [],
-//   inputValue: '',
-//   activeCount: 0
-// }
+};
