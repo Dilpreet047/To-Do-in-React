@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "To do backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dilpreet047/To-Do-in-React.git"
+  },
+  "author": "Dilpreet Luthra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dilpreet047/To-Do-in-React/issues"
+  },
+  "homepage": "https://github.com/Dilpreet047/To-Do-in-React#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
