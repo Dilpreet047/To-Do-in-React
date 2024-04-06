@@ -1,17 +1,18 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import DatePicker from 'react-datepicker';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function CreateNewAccount() {
+
+    const navigate = useNavigate();
     const initialValues = {
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
-        dob: null,
-        profession: ''
+        gender: ''
     };
 
     const validationSchema = Yup.object({
@@ -20,11 +21,33 @@ export default function CreateNewAccount() {
         email: Yup.string().email('Invalid email format').required('Email is required'),
         password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
         confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
-        dob: Yup.date().nullable().required('Date of Birth is required'),
-        profession: Yup.string().required('Profession is required')
+        gender: Yup.string().required('Gender is required')
     });
 
     const onSubmit = (values) => {
+        fetch('/register', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            
+            body: JSON.stringify({
+                FirstName: values.firstName,
+                LastName: values.lastName,
+                Email: values.email,
+                Password: values.password,
+                Gender: values.gender
+            })
+          })
+          .then((e) => {
+            if(e.status == 200 || e.status == 201) {
+                navigate('/home')
+            }
+            console.log('Request made successfully');
+          })
+          .catch((e) => {
+            console.log('Error')
+          })
         console.log('Form data', values);
     };
 
@@ -32,7 +55,7 @@ export default function CreateNewAccount() {
         <>
             <h2 className="text-2xl font-bold mb-4">Create New Account</h2>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-                {({ isSubmitting, setFieldValue }) => (
+                {({ isSubmitting }) => (
                     <Form className="flex flex-col space-y-4">
                         <div className="flex space-x-4">
                             <div className="flex flex-col w-1/2">
@@ -96,37 +119,20 @@ export default function CreateNewAccount() {
                             />
                             <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
+                        
                         <div className="flex flex-col">
-                            <label htmlFor="dob" className="text-lg font-semibold mb-2">Date of Birth</label>
-                            <DatePicker
-                            id="dob"
-                            name="dob"
-                            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            selected={null}
-                            onChange={(date) => setFieldValue('dob', date)}
-                            placeholderText="Select your date of birth"
-                            dateFormat="dd/MM/yyyy"
-                            required
-                            />
-                            <ErrorMessage name="dob" component="div" className="text-red-500 text-sm mt-1" />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="text-lg font-semibold mb-2">Occupation</label>
+                            <label className="text-lg font-semibold mb-2">Gender</label>
                             <div className="flex space-x-4">
-                            <label>
-                                <Field className="mr-2" type="radio" name="profession" value="Student" required />
-                                Student
-                            </label>
-                            <label>
-                                <Field className="mr-2" type="radio" name="profession" value="Professional" required />
-                                Professional
-                            </label>
-                            <label>
-                                <Field className="mr-2" type="radio" name="profession" value="Home Maker" required />
-                                Home Maker
-                            </label>
+                                <label>
+                                    <Field className="mr-2" type="radio" name="gender" value="Male" required />
+                                    Male
+                                </label>
+                                <label>
+                                    <Field className="mr-2" type="radio" name="gender" value="Female" required />
+                                    Female
+                                </label>
                             </div>
-                            <ErrorMessage name="profession" component="div" className="text-red-500 text-sm mt-1" />
+                            <ErrorMessage name="gender" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
                         <button 
                             type="submit" 

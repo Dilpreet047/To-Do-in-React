@@ -13,8 +13,7 @@ function RegisterUser(request, response) {
             LastName: request.body.LastName,
             Email: request.body.Email,
             Password: hashedPassword,
-            DateOfBirth: request.body.DateOfBirth,
-            Occupation:  request.body.Occupation
+            Gender:  request.body.Gender
           });
           // save the new user
           user

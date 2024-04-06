@@ -20,11 +20,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true
     },
-    DateOfBirth: {
-        type: Date,
-        required: true
-    },
-    Occupation: {
+    Gender: {
         type: String,
         required: true
     }
