@@ -8,7 +8,27 @@ export default function Login() {
     const navigate = useNavigate()
 
     function handleFormSubmit(values) {
-        navigate('/home')
+
+        fetch('/login', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            
+            body: JSON.stringify({
+                Email: values.email,
+                Password: values.password,
+            })
+          })
+          .then((e) => {
+            if(e.status == 200 || e.status == 201) {
+                navigate('/home')
+            }
+            console.log('Request made successfully');
+          })
+          .catch((e) => {
+            console.log(e)
+          })
     }
 
     const validationSchema = yup.object({
