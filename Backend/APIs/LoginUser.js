@@ -36,6 +36,9 @@ function LoginUser(request, response) {
                 return response.status(200).send({
                     Message: "User identified",
                     Email: user.Email,
+                    FirstName: user.FirstName,
+                    LastName: user.LastName,    
+                    Gender: user.Gender,
                     token
                 })
             }

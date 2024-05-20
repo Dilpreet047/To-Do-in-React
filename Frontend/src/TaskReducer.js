@@ -99,3 +99,8 @@ export function FilterReducer(filterState, action) {
     }
   }
 }
+
+export function UserInfoReducer(_, action) {
+  let user =  {...action.value}
+  return user
+}

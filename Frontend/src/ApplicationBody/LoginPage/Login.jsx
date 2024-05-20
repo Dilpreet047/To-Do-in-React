@@ -1,11 +1,19 @@
 import { Field, Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { userInfoDispatcher } from '../../ApplicationContext';
 
 export default function Login() {
 
     const initialValues = {email: '', password: ''};
     const navigate = useNavigate()
+
+    const userInfoDispatch = useContext(userInfoDispatcher)
+
+    function handleUserInfoContextSave(userInfo) {
+        userInfoDispatch({value: userInfo})
+    }
 
     function handleFormSubmit(values) {
 
@@ -22,7 +30,14 @@ export default function Login() {
           })
           .then((e) => {
             if(e.status == 200 || e.status == 201) {
-                navigate('/home')
+                e.json()
+                    .then(data => {
+                        handleUserInfoContextSave({...data});
+                        navigate('/home')
+                    })
+                    .catch(_ => {
+                        console.log('Cannot fetch user data')
+                    })
             }
             console.log('Request made successfully');
           })
